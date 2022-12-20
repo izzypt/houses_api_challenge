@@ -126,22 +126,21 @@ properties with 2 bedrooms should return:
     
    2 - Create the models for the DB
    
-    class Property(models.Model):
-      name = models.CharField(max_length=150, unique=True)
+        class Rooms(models.Model):
+            name = models.CharField(max_length=50)
 
-    class Unit(models.Model):
-        property = models.ForeignKey(Property, on_delete=models.CASCADE)
-        KITCHEN = 'kitchen'
-        BATHROOM = 'bathroom'
-        BEDROOM = 'bedroom'
-        LIVING_ROOM = 'living-room'
-        ROOM_CHOICES = (
-            (KITCHEN, 'Kitchen'),
-            (BATHROOM, 'Bathroom'),
-            (BEDROOM, 'Bedroom'),
-            (LIVING_ROOM, 'Living Room'),
-        )
-        room_type = models.CharField(max_length=20, choices=ROOM_CHOICES)
+            def __str__(self) -> str:
+                return self.name
+
+        class House(models.Model):
+            name = models.CharField(max_length=50)
+
+            def __str__(self) -> str:
+                return self.name
+
+        class House_Rooms(models.Model):
+            house = models.ForeignKey(House, on_delete=models.CASCADE)
+            room = models.ForeignKey(Rooms, on_delete=models.CASCADE)
    
    3 - Migrate the newly written models
       
