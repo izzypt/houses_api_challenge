@@ -120,14 +120,6 @@ properties with 2 bedrooms should return:
         'django.contrib.staticfiles',
       ]
    
-   3 - On our main folder, on our urls.py entry point, include the url conf for our api. This will include all routes we establish on our api folder.
-   
-    from django.urls import path, include
-
-    urlpatterns = [
-        path('admin/', admin.site.urls),
-        path('api/', include('api.urls'))
-    ]
       
   ### Setup SQLite DB
    1 - We will use SQlite for a small project. We need to make first migrations to setup the basic Django tables.
@@ -156,3 +148,119 @@ properties with 2 bedrooms should return:
       
       $ python manage.py makemigrations
       $ python manage.py migrate
+      
+   ### Creating routes, views and serializers for our data
+   Now that we have our models, we can start creating routes and views to create and modify the data in the DB.
+   
+   1 - We will start by creating routes for our API in the urls.py of our api folder/app.
+
+      from django.urls import path
+      from . import views
+    
+      urlpatterns = [
+          path('houses', name='getHouses'),
+          path('house/add', name='addHouse'),
+          path('house/delete', name='deleteHouse'),
+          path('house/update', name='updateHouse')
+      ]
+      
+   2 - Now that we have the routes, we need some views , to handle what we will do once a user hits that point.
+   
+      from .models import House, Rooms , House_Rooms
+      from .serializers import HouseSerializer, RoomSerializer
+      from django.shortcuts import get_object_or_404
+      from django.http import HttpResponse
+      from rest_framework.response import Response
+      from rest_framework.decorators import api_view
+      from rest_framework import status
+      import json
+
+      @api_view(['GET'])
+      def getData(request):
+          houses = House.objects.all().order_by('name') 
+          serializer = HouseSerializer(houses, many=True)
+          return Response(serializer.data)
+
+      @api_view(['GET','DELETE'])
+      def deleteHouse(request):
+          # Get the house ID from the request
+          house_id = request.data.get('house_id')
+
+          # Fetch Object
+          house = get_object_or_404(House, pk=house_id)
+
+          # Delete it
+          house.delete()
+          return Response(status=status.HTTP_202_ACCEPTED)
+
+      @api_view(['POST'])
+      def addHouse(request):
+          # Get the data from the request
+          house_name = request.data.get('house_name')
+          room_names = request.data.get('room_names')
+
+          # Create a new House object
+          house = House.objects.create(name=house_name)
+
+          # Create a new Rooms object for each room name
+          rooms = []
+          for room_name in room_names:
+              room = Rooms.objects.create(name=room_name)
+              rooms.append(room)
+
+          # Create a House_Rooms object for each room and associate it with the house
+          for room in rooms:
+              House_Rooms.objects.create(house=house, room=room)
+
+          return HttpResponse('House and rooms added successfully')
+
+      @api_view(['POST'])
+      def updateHouse(request):
+          # Get the data from the request
+          house_id = request.data.get('house_id')
+          house_name = request.data.get('house_name')
+          room_names = request.data.get('room_names')
+
+          # Get the House object to be updated
+          house = House.objects.get(pk=house_id)
+
+          # Update the house name
+          house.name = house_name
+          house.save()
+
+          # Delete the existing House_Rooms objects for this house
+          House_Rooms.objects.filter(house=house).delete()
+
+          # Create a new Rooms object for each room name
+          rooms = []
+          for room_name in room_names:
+              room = Rooms.objects.create(name=room_name)
+              rooms.append(room)
+
+          # Create a House_Rooms object for each room and associate it with the house
+          for room in rooms:
+              House_Rooms.objects.create(house=house, room=room)
+
+          return HttpResponse('House and rooms added successfully')
+          
+   3 - Now that we have our views, we need to assign them to each path:
+   
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+        path('houses',views.getData, name='getData'),
+        path('addHouse',views.addHouse, name='addHouse'),
+        path('house/delete', views.deleteHouse, name='deleteHouse'),
+        path('house/update', views.updateHouse, name='updateHouse')
+    ]
+       
+
+   3 - On our main folder, on our urls.py entry point, include the url conf for our api. This will include all routes we establish on our api folder.
+   
+    from django.urls import path, include
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('api/', include('api.urls'))
+    ]
