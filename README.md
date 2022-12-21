@@ -1,11 +1,11 @@
 # Uniplaces exercise
 
-[Section 1 -](#The Problem)
-[Section2 - ](#Solution process)
+[Section 1 -](#TheProblem)
+[Section2 - ](#Solutionprocess)
 
 Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 
-## The problem {#The Problem}
+## The problem {#TheProblem}
 
   Properties are very special objects of our domain. Properties can have multiple Units.
   Assume that properties have a unique name. Each property have an array of units, and
