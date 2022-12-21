@@ -256,11 +256,11 @@ properties with 2 bedrooms should return:
     ]
        
 
-   3 - On our main folder, on our urls.py entry point, include the url conf for our api. This will include all routes we establish on our api folder.
+   3 - At our properties main folder, in urls.py entry point (root urls file), include the urls from our api. This will include all routes we establish on our api folder.
    
-    from django.urls import path, include
+      from django.urls import path, include
 
-    urlpatterns = [
-        path('admin/', admin.site.urls),
-        path('api/', include('api.urls'))
-    ]
+      urlpatterns = [
+          path('admin/', admin.site.urls),
+          path('api/', include('api.urls'))
+      ]
