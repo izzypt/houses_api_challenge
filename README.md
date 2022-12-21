@@ -129,7 +129,13 @@ properties with 2 bedrooms should return:
    2 - Create the models for the DB
    
         class Rooms(models.Model):
-            name = models.CharField(max_length=50)
+            ROOM_CHOICES = [
+                ('kitchen', 'Kitchen'),
+                ('bathroom', 'Bathroom'),
+                ('bedroom', 'Bedroom'),
+                ('living-room', 'Living Room'),
+            ]
+            name = models.CharField(max_length=50, choices=ROOM_CHOICES,)
 
             def __str__(self) -> str:
                 return self.name
