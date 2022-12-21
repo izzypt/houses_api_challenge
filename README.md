@@ -93,6 +93,10 @@ properties with 2 bedrooms should return:
   
     $ pip install djangorestframework
     
+  5 - Install corsheaders to request from  different domain than the one that served the web page (Frontend server != backend server)
+  
+    pip install django-cors-headers
+    
   5 - Output a file to save/track our current packages
   
     $ pip freeze > requirements.txt
@@ -110,6 +114,7 @@ properties with 2 bedrooms should return:
   2 - Add Django rest framework and the api app we just created to our installed apps in properties/settings.py so Django can recognize it.
   
       INSTALLED_APPS = [
+        'corsheaders',
         'api.apps.ApiConfig'
         'rest_framework',
         'django.contrib.admin',
@@ -118,6 +123,26 @@ properties with 2 bedrooms should return:
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+      ]
+      
+   3 - Insert corsheaders into our middleware
+   
+    MIDDLEWARE = 
+    [
+      'django.middleware.security.SecurityMiddleware',
+      'django.contrib.sessions.middleware.SessionMiddleware',
+      'corsheaders.middleware.CorsMiddleware',
+      'django.middleware.common.CommonMiddleware',
+      'django.middleware.csrf.CsrfViewMiddleware',
+      'django.contrib.auth.middleware.AuthenticationMiddleware',
+      'django.contrib.messages.middleware.MessageMiddleware',
+      'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
+    
+   4 - Set a permission to our front-end server
+
+      CORS_ORIGIN_WHITELIST = [
+         'http://localhost:8080',
       ]
    
       
