@@ -2,6 +2,12 @@
 
 Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 
+[Section 1 - The Problem](#The Problem)
+
+[Section2 - Solution Process](#Solution process)
+
+
+
 ## The problem
 
   Properties are very special objects of our domain. Properties can have multiple Units.
