@@ -18,7 +18,7 @@ def getHouses(request):
 def deleteHouse(request):
     # Get the house ID from the request
     house_id = request.data.get('house_id')
-
+    print("The house id we received: ", house_id)
     # Fetch Object
     house = get_object_or_404(House, pk=house_id)
 
