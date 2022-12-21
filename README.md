@@ -82,7 +82,8 @@ properties with 2 bedrooms should return:
     
   2 - activate virtual env 
     
-     source venv/bin/activate
+     ubuntu/Mac -> "source venv/bin/activate"
+     Win -> ".\venv\Scripts\activate"
      
   3 - Install DJango 
   
