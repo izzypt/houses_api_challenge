@@ -15,6 +15,7 @@
                 <v-row>
                     <v-col cols="12">
                     <v-text-field
+                        v-model="property_name"
                         label="Property Name"
                         outlined
                         filled
@@ -33,17 +34,35 @@
                     hide-no-data
                     hide-selected
                     label="Select Rooms"
-                    placeholder="Start typing to Search"
+                    placeholder="Select from the available choices"
                     prepend-icon="mdi-bed"
+                    clearable
+                    deletable-chips
                 ></v-autocomplete>
             </v-col>
             </v-row>
+            <v-row >
+                <v-col v-for="room, i in selectedRooms" cols="12" :key="i">
+                    <v-slider
+                        v-model="value"
+                        :label="room"
+                        max="15"
+                        step="1"
+                        thumb-label
+                        ticks
+                        hint="How many?"
+                        persistent-hint
+                    ></v-slider>
+                </v-col>
+            </v-row>
+            {{ selectedRooms }}
         </v-card-text>
         <v-divider></v-divider>
         <!-- ACTIONS -->
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer class="my-2"></v-spacer>
           <v-btn
+            
             color="red"
             text
             @click="$emit('closedDialog')"
@@ -51,7 +70,6 @@
             Cancel
           </v-btn>
           <v-btn
-            flat
             color="indigo white--text"
             @click="$emit('closedDialog')"
           >
@@ -70,10 +88,12 @@
         activate: Boolean
     },
     data: () => ({
-        dialog_active: false,
-        roomChoices: ['bedroom', 'kitchen', 'bathroom', 'living-room'],
-        values: [],
-    }),
+        /* --- DYNAMIC DATA --- */
+        property_name: null,
+        selectedRooms: [],
 
+        /* --- STATIC DATA --- */
+        roomChoices: ['bedroom', 'kitchen', 'bathroom', 'living-room'],
+    }),
  }
 </script>
