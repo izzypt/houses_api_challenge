@@ -96,7 +96,7 @@ properties with 2 bedrooms should return:
   5 - Output a file to save/track our current packages
   
     $ pip freeze > requirements.txt
-      #To install packages from it, we use : pip install -r requirements.txt
+      //To install packages from it: pip install -r requirements.txt
     
   6 - Start Django project
    
