@@ -1,10 +1,12 @@
 # Uniplaces exercise
 
+Solving the first exercise sent from Uniplaces for Jr. Full Stack position
+
 [Section 1 - The Problem](#TheProblem)
 
 [Section2 - Solution Process](#Solutionprocess)
 
-Solving the first exercise sent from Uniplaces for Jr. Full Stack position
+
 
 ## The problem {#TheProblem}
 
@@ -77,7 +79,7 @@ properties with 2 bedrooms should return:
       ]
     } 
     
-## Solution process {#Solution process}
+## Solution process {#Solutionprocess}
 
   ### Starting backend
   1 - Create virtual environment to keep our dependeciens isolated and avoid packages conflicts
