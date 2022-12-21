@@ -118,7 +118,15 @@ properties with 2 bedrooms should return:
         'django.contrib.messages',
         'django.contrib.staticfiles',
       ]
-      
+   
+   3 - On our main folder, on our urls.py entry point, include the url conf for our api. This will include all routes we establish on our api folder.
+   
+    from django.urls import path, include
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('api/', include('api.urls'))
+    ]
       
   ### Setup SQLite DB
    1 - We will use SQlite for a small project. We need to make first migrations to setup the basic Django tables.
