@@ -1,5 +1,8 @@
 # Uniplaces exercise
 
+[Link text](##The Problem)
+[Link text](##Solution process)
+
 Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 
 ## The problem
