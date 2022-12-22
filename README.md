@@ -2,13 +2,14 @@
 
 Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 
-[Section 1 - The Problem](#The Problem)
+[Section 1 - The Problem](#TheProblem)
 
-[Section2 - Solution Process](#Solution process)
+[Section2 - Solution Process](#Solutionprocess)
 
 
+<a id="TheProblem"></a>
 
-## The problem
+# The problem 
 
   Properties are very special objects of our domain. Properties can have multiple Units.
   Assume that properties have a unique name. Each property have an array of units, and
@@ -78,8 +79,10 @@ properties with 2 bedrooms should return:
           }
       ]
     } 
+
+<a id="Solutionprocess"></a>
     
-## Solution process
+# Solution process 
 
   ### Starting backend
   1 - Create virtual environment to keep our dependeciens isolated and avoid packages conflicts
