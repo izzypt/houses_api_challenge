@@ -31,6 +31,7 @@
                     multiple
                     v-model="selectedRooms"
                     :items="roomChoices"
+                    item-text="name"
                     hide-no-data
                     hide-selected
                     label="Select Rooms"
@@ -42,20 +43,22 @@
             </v-col>
             </v-row>
             <v-row >
-                <v-col v-for="room, i in selectedRooms" cols="12" :key="i">
-                    <v-slider
-                        v-model="value"
-                        :label="room"
-                        max="15"
-                        step="1"
-                        thumb-label
-                        ticks
-                        hint="How many?"
-                        persistent-hint
-                    ></v-slider>
-                </v-col>
+                <v-col v-for="room, i in roomChoices" cols="12" :key="i">
+                    <template v-if="selectedRooms.includes(room.name)">
+                        <v-slider
+                            v-model="room.quantity"
+                            :label="room.name"
+                            max="15"
+                            min="1"
+                            step="1"
+                            thumb-label
+                            ticks
+                            hint="How many?"
+                            persistent-hint
+                        ></v-slider>
+                    </template>
+            </v-col>
             </v-row>
-            {{ selectedRooms }}
         </v-card-text>
         <v-divider></v-divider>
         <!-- ACTIONS -->
@@ -71,7 +74,7 @@
           </v-btn>
           <v-btn
             color="indigo white--text"
-            @click="$emit('closedDialog')"
+            @click="saveNewHouse"
           >
             Save
           </v-btn>
@@ -93,7 +96,61 @@
         selectedRooms: [],
 
         /* --- STATIC DATA --- */
-        roomChoices: ['bedroom', 'kitchen', 'bathroom', 'living-room'],
+        roomChoices: [
+            {
+                name: 'bedroom',
+                quantity: 0,
+            },
+            {
+                name: 'kitchen',
+                quantity: 0,
+            },
+            {
+                name: 'living-room',
+                quantity: 0,
+            },
+            {
+                name: 'bathroom',
+                quantity: 0,
+            },
+        ]
     }),
- }
+    methods : {
+        roomCounter(room, arr){
+            let counter = 0;
+            for (let i = 0; i < arr?.length; i++)
+                if(room === arr[i])
+                    counter++
+            console.log(counter)
+            return counter;
+        },
+        async saveNewHouse(){
+             // Handle Rooms before saving
+            let finalRooms = JSON.parse(JSON.stringify(this.selectedRooms))
+            this.roomChoices.map(room => {
+                if (!this.selectedRooms.includes(room.name))
+                    room.quantity = 0;
+                else
+                {
+                    while (room.quantity != this.roomCounter(room.name, finalRooms))
+                    {
+                        finalRooms.push(room.name)
+                    }
+                }
+            })
+            console.log({ house_name : this.property_name , room_names : finalRooms })
+            //Send request
+            return fetch('http://127.0.0.1:8000/api/house/add', {
+                method: 'POST',
+                body: JSON.stringify({house_name : this.property_name , room_names : finalRooms }),
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.warn(err));
+        }
+        }
+    }
 </script>
