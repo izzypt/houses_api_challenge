@@ -2,17 +2,24 @@ from .models import House, Rooms , House_Rooms
 from .serializers import HouseSerializer, RoomSerializer
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.db.models import Count, Q
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-import json
+
 
 # Create your views here.
 @api_view(['GET'])
-def getHouses(request):
-    houses = House.objects.all().order_by('name') 
-    serializer = HouseSerializer(houses, many=True)
-    return Response(serializer.data)
+def getHouses(request, num_room):
+	if num_room != "all":
+		# Get the houses and count the number of bedrooms for each house, annotating that number to each object
+		houses = House.objects.annotate(num_bedrooms=Count('house_rooms', filter=Q(house_rooms__room__name='bedroom')))
+		# Filter the houses to include only those that have the specified number of bedrooms
+		houses = houses.filter(num_bedrooms=num_room)
+	else:
+		houses = House.objects.all()
+	serializer = HouseSerializer(houses, many=True)
+	return Response(serializer.data)
 
 @api_view(['DELETE'])
 def deleteHouse(request):

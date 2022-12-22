@@ -27,10 +27,22 @@
                     </v-icon>
                 </template>
                 </v-treeview>
-
-                <v-col class="text-right">
-                    <v-btn small class="mt-3" color="indigo white--text" @click="openAddDialog">Add Property</v-btn>
+                <v-divider></v-divider>
+                <!-- FILTER + ADD PROPERTY-->
+                <v-row class="mt-5">
+                    <v-col cols="3" class="d-flex text-center">
+                        <v-select
+                            v-model="num_rooms"
+                            :items="[0,1,2,3,4,5, 'all']"
+                            prepend-icon="mdi-filter"
+                            label="rooms"
+                        >Number of rooms</v-select>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                <v-col cols="3" class="d-flex justify-end">
+                    <v-btn small class="mt-6" color="indigo white--text" @click="openAddDialog">Add Property</v-btn>
                 </v-col>
+            </v-row>
             </v-col>
 
             <v-divider vertical></v-divider>
@@ -148,6 +160,7 @@ export default {
         avatar: null,
         open: [],
         houses_container: [],
+        num_rooms : 'all',
 
         /* --- DIALOG STATUS --- */
         openAddHouseDialog: false,
@@ -174,6 +187,9 @@ export default {
 
     watch: {
       selected: 'randomAvatar',
+      num_rooms(){
+        this.fetchHouses()
+      }
     },
 
     methods: {
@@ -188,7 +204,7 @@ export default {
         },
         async fetchHouses () {
             await this.pause(1500)
-            return fetch('http://127.0.0.1:8000/api/houses')
+            return fetch(`http://127.0.0.1:8000/api/houses/${this.num_rooms}`)
                 .then(res => res.json())
                 .then(json => this.houses_container = json )
                 .catch(err => console.warn(err))
