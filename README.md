@@ -7,6 +7,9 @@ Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 [Section2 - Solution Process](#Solutionprocess)
 
 
+https://www.youtube.com/watch?v=7OBV_ZGBWmQ
+
+
 <a id="TheProblem"></a>
 
 # The problem 
