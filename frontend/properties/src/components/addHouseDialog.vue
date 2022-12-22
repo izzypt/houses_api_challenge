@@ -73,6 +73,7 @@
             Cancel
           </v-btn>
           <v-btn
+            :loading="loading"
             color="indigo white--text"
             @click="saveNewHouse"
           >
@@ -113,7 +114,10 @@
                 name: 'bathroom',
                 quantity: 0,
             },
-        ]
+        ],
+
+        /* --- LOADING STATUS --- */
+        loading: false,
     }),
     methods : {
         roomCounter(room, arr){
@@ -124,6 +128,7 @@
             return counter;
         },
         async saveNewHouse(){
+            this.loading = true
              // Handle Rooms before saving
             let finalRooms = JSON.parse(JSON.stringify(this.selectedRooms))
             this.roomChoices.map(room => {
@@ -148,6 +153,7 @@
             .then(res => res.json())
             .then(json => {
                 console.log(json)
+                this.loading = false
                 this.$emit('addedProperty')
                 this.$emit('closedDialog')
             })

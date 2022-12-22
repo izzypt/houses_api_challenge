@@ -25,6 +25,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                :loading="loading"
                 color="red white--text"
                 @click="deleteHouse"
               >
@@ -44,10 +45,11 @@ export default {
        deleteID: Number
    },
    data: () => ({
-
+    loading: false
    }),
    methods : {
         deleteHouse() {
+            this.loading = true
             return fetch('http://127.0.0.1:8000/api/house/delete', {
                 method: 'DELETE',
                 body: JSON.stringify({ house_id : this.deleteID }),
@@ -58,6 +60,7 @@ export default {
             .then(res => res.json())
             .then(json => {
                 console.log(json)
+                this.loading = false
                 this.$emit('deletedHouse')
                 this.$emit('closedDialog')
             })

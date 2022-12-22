@@ -24,7 +24,7 @@ def deleteHouse(request):
 
     # Delete it
     house.delete()
-    return Response(status=status.HTTP_202_ACCEPTED)
+    return Response(status=status.HTTP_202_ACCEPTED, data={"Message": "Success"})
 
 @api_view(['POST'])
 def addHouse(request):
