@@ -45,7 +45,7 @@ def addHouse(request):
     for room in rooms:
         House_Rooms.objects.create(house=house, room=room)
 
-    return HttpResponse('House and rooms added successfully')
+    return Response(status=status.HTTP_202_ACCEPTED, data={"Message": "Success"})
 
 @api_view(['POST'])
 def updateHouse(request):
@@ -74,6 +74,4 @@ def updateHouse(request):
     for room in rooms:
         House_Rooms.objects.create(house=house, room=room)
 
-    return HttpResponse('House and rooms added successfully')
-
-
+    return Response(status=status.HTTP_202_ACCEPTED, data={"Message": "Success"})

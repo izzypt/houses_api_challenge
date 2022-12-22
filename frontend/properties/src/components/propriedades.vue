@@ -88,7 +88,7 @@
                         </v-col>
                     </v-row>
                     <v-row  class="d-flex justify-center ma-2">
-                        <v-btn small class="my-2 white--text" color="red" @click="deleteHouse(selected.id)">
+                        <v-btn small class="my-2 white--text" color="red" @click="openDeleteDialog = true">
                             Delete
                         </v-btn>
                     </v-row>
@@ -101,12 +101,22 @@
         <AddHouseDialog
             :activate="openAddHouseDialog"
             v-on:closedDialog="openAddHouseDialog = !openAddHouseDialog"
+            v-on:addedProperty="fetchHouses"
         ></AddHouseDialog>
+
+        <DeleteDialogVue
+            :activate="openDeleteDialog"
+            :deleteID="selected?.id"
+            v-on:closedDialog="openDeleteDialog = !openDeleteDialog"
+            v-on:deletedHouse="fetchHouses"
+        >
+        </DeleteDialogVue>
     </v-card>
 </template>
 
 <script>
 import AddHouseDialog from './addHouseDialog.vue'
+import DeleteDialogVue from './deleteDialog.vue'
 
 const avatars = [
 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMvgc0YOxmUSLTswGBFJImobiMMeKR06WXQwXakKbjSF_dPHdfod637Rsvc3Gxjo81tVM&usqp=CAU',
@@ -126,7 +136,8 @@ const avatars = [
 export default {
     name: 'PropriedadesComponente',
     components: {
-        AddHouseDialog
+        AddHouseDialog,
+        DeleteDialogVue
     },
     props: {
         msg: String
@@ -140,6 +151,7 @@ export default {
 
         /* --- DIALOG STATUS --- */
         openAddHouseDialog: false,
+        openDeleteDialog: false
     }),
 
     computed: {
@@ -178,15 +190,11 @@ export default {
             await this.pause(1500)
             return fetch('http://127.0.0.1:8000/api/houses')
                 .then(res => res.json())
-                .then(json => {
-                this.houses_container = json 
-                console.log(this.houses_container)})
+                .then(json => this.houses_container = json )
                 .catch(err => console.warn(err))
         },
-        addHouse(){
-
-        },
         deleteHouse(id) {
+            this.openDeleteDialog = true;
             return fetch('http://127.0.0.1:8000/api/house/delete', {
                 method: 'DELETE',
                 body: JSON.stringify({ house_id : id }),

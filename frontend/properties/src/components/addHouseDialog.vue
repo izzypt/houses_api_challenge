@@ -121,7 +121,6 @@
             for (let i = 0; i < arr?.length; i++)
                 if(room === arr[i])
                     counter++
-            console.log(counter)
             return counter;
         },
         async saveNewHouse(){
@@ -145,10 +144,13 @@
                 body: JSON.stringify({house_name : this.property_name , room_names : finalRooms }),
                 headers: {
                 'Content-Type': 'application/json'
-                }
-            })
+                }})
             .then(res => res.json())
-            .then(json => console.log(json))
+            .then(json => {
+                console.log(json)
+                this.$emit('addedProperty')
+                this.$emit('closedDialog')
+            })
             .catch(err => console.warn(err));
         }
         }
