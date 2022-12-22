@@ -8,7 +8,7 @@ Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 
 
 
-## The problem <a id="TheProblem"></a>
+# The problem <a id="TheProblem"></a>
 
   Properties are very special objects of our domain. Properties can have multiple Units.
   Assume that properties have a unique name. Each property have an array of units, and
@@ -79,7 +79,7 @@ properties with 2 bedrooms should return:
       ]
     } 
     
-## Solution process <a id="Solutionprocess"></a>
+# Solution process <a id="Solutionprocess"></a>
 
   ### Starting backend
   1 - Create virtual environment to keep our dependeciens isolated and avoid packages conflicts
