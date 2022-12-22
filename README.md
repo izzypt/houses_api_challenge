@@ -2,9 +2,9 @@
 
 Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 
-[Section 1 - The Problem](#TheProblem)
+[Section 1 - The Problem](##The Problem)
 
-[Section2 - Solution Process](#Solutionprocess)
+[Section2 - Solution Process](##Solution process)
 
 
 
