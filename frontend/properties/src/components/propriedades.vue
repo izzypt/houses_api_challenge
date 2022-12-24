@@ -84,7 +84,6 @@
                     <v-divider></v-divider>
                     <v-row
                         class="text-left"
-                        tag="v-card-text"
                     >
                         <v-col
                             class="text-right my-3"
