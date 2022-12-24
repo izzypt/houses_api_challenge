@@ -8,8 +8,8 @@ Solving the first exercise sent from Uniplaces for Jr. Full Stack position
 
 
 <div align="left">
-      <a href="https://www.youtube.com/watch?v=7OBV_ZGBWmQ">
-         <img src="https://img.youtube.com/vi/7OBV_ZGBWmQ/0.jpg" style="width:100%;">
+      <a href="https://www.youtube.com/watch?v=Av_siN7ZDJs">
+         <img src="https://img.youtube.com/vi/Av_siN7ZDJs/0.jpg" style="width:100%;">
       </a>
 </div>
 
