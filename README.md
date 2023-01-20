@@ -1,4 +1,4 @@
-# Uniplaces exercise
+# Interview exercise
 
 [Section 1 - The Problem](#TheProblem)
 
