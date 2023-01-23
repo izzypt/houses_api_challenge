@@ -1,4 +1,4 @@
-# Interview exercise
+# Exercise
 
 [Section 1 - The Problem](#TheProblem)
 
